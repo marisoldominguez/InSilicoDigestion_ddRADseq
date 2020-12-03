@@ -8,7 +8,7 @@ use RestrictionDigest;
 	
 	my $file_name = 'lista_enzimas_reduced_ed_commas.txt';
     open my $FILE, '<', $file_name or die "ERROR: Could not open file $!";
-#Loop for reading the file and putting content in an array  
+    #Loop for reading the file and putting content in an array  
     my @array = ();
         while (my $line = <$FILE>){
         chomp $line;
@@ -18,9 +18,9 @@ use RestrictionDigest;
 #    print "$array[0]\n";
 #    print "$array[1]\n";
 #    print "$array[2]\n";
-#     print "$#array"; #size of array
-##    my $filesize = -s "lista_enzimas_reduced_ed2.txt";
-##    print "Size: $filesize\n";
+#    print "$#array"; #size of array
+#    my $filesize = -s "lista_enzimas_reduced_ed2.txt";
+#    print "Size: $filesize\n";
     close ($FILE);
     
    my $count= 0; 
@@ -103,41 +103,41 @@ use RestrictionDigest;
         
         
         try {        
-        #$double_digest->new_enzyme(-enzyme_name=>$fields[0], -recognition_site =>$fields[1]);
-        #$double_digest->new_enzyme(-enzyme_name=>$fields2[0], -recognition_site =>$fields2[1]);
-        $double_digest->add_enzyme_pair(-front_enzyme =>$fields[0], -behind_enzyme =>$fields2[0]);
-        
-        $double_digest->change_range(-start =>301,-end =>500);
-        $double_digest->change_lengths_distribution_parameters(-front =>200,-behind =>700,-step =>100);
-        
-               
-        print "($fields[0])";
-        print "($fields[1])";
-        print "($fields2[0])";
-        print "($fields2[1])";
-        
-        sub main {
-            my $directory = "Output_RestrictionDigestion_GeoFort";
-                unless(-e $directory or mkdir $directory) {
-                    die "Unable to create folder $directory\n";
+            #$double_digest->new_enzyme(-enzyme_name=>$fields[0], -recognition_site =>$fields[1]);
+            #$double_digest->new_enzyme(-enzyme_name=>$fields2[0], -recognition_site =>$fields2[1]);
+            $double_digest->add_enzyme_pair(-front_enzyme =>$fields[0], -behind_enzyme =>$fields2[0]);
+            
+            $double_digest->change_range(-start =>301,-end =>500);
+            $double_digest->change_lengths_distribution_parameters(-front =>200,-behind =>700,-step =>100);
+            
+                
+            print "($fields[0])";
+            print "($fields[1])";
+            print "($fields2[0])";
+            print "($fields2[1])";
+            
+            sub main {
+                my $directory = "Output_RestrictionDigestion_GeoFort";
+                    unless(-e $directory or mkdir $directory) {
+                        die "Unable to create folder $directory\n";
+                }
             }
-        }
-        main();
-        $double_digest->add_output_dir(-output_dir=>'/mnt/middleage/evo/mdominguez/RestrictionDigest-master/Output_RestrictionDigestion_GeoFort');
-        $double_digest->double_digest();
-        
-        `rm /mnt/middleage/evo/mdominguez/RestrictionDigest-master/Output_RestrictionDigestion_GeoFort/position*`;
-        `rm /mnt/middleage/evo/mdominguez/RestrictionDigest-master/Output_RestrictionDigestion_GeoFort/seq*`;
-        `rm /mnt/middleage/evo/mdominguez/RestrictionDigest-master/Output_RestrictionDigestion_GeoFort/coverage*`;
+            main();
+            $double_digest->add_output_dir(-output_dir=>'/mnt/middleage/evo/mdominguez/RestrictionDigest-master/Output_RestrictionDigestion_GeoFort');
+            $double_digest->double_digest();
+            
+            `rm /mnt/middleage/evo/mdominguez/RestrictionDigest-master/Output_RestrictionDigestion_GeoFort/position*`;
+            `rm /mnt/middleage/evo/mdominguez/RestrictionDigest-master/Output_RestrictionDigestion_GeoFort/seq*`;
+            `rm /mnt/middleage/evo/mdominguez/RestrictionDigest-master/Output_RestrictionDigestion_GeoFort/coverage*`;
          }
               
          catch {
-           print "($fields[0])";
-           print "($fields2[0])";
-           $count++;
-           };         
+            #Here we wanna know the enzimes which have failed     
+            print "($fields[0])";
+            print "($fields2[0])";
+            $count++;
+        };         
         }
     }
-#   }
     
 print "Total number of enzymes failing is $count";
